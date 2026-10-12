@@ -1,0 +1,43 @@
+Table administrators {
+  admin_id int [pk, increment]
+  username varchar [not null, unique]
+  password_hash varchar [not null]
+}
+
+Table appointments {
+  appointment_id int [pk, increment]
+  client_name varchar [not null]
+  phone varchar [not null]
+  date_time datetime [not null]
+  service varchar [not null, note: 'Application, Refill, Removal']
+  quote_details text [note: 'Details of the services']
+  deposit_amount decimal [not null, default: 0]
+  total_price decimal [not null, default: 0]
+  status varchar [not null, default: 'Pending', note: 'Pending, Confirmed, Canceled, Completed']
+  payment_status varchar [not null, default: 'Pending', note: 'Pending, Partially_paid, Paid']
+  payment_receipt_url varchar
+  reference_photo_url varchar [note: 'Optional']
+}
+
+Table calendar_blocks {
+  block_id int [pk, increment]
+  start_datetime datetime [not null]
+  end_datetime datetime [not null]
+  reason varchar [note: 'Optional']
+}
+
+Table inventory {
+  item_id int [pk, increment]
+  name varchar [not null, unique]
+  current_stock int [not null, default: 0, note: 'Must be >=0']
+  min_stock int [not null, default: 0, note: 'Must be >=0']
+  unit_cost decimal
+}
+
+Table expenses {
+  expense_id int [pk, increment]
+  description varchar [not null]
+  category varchar [not null]
+  amount decimal [not null]
+  expense_date datetime [not null]
+}
